@@ -14,6 +14,11 @@ function Item:new(a)
   return newItem
 end
  
- function Item:draw(y)
-   love.graphics.print(self.name, 50, y * 30)
- end
+function Item:draw(i, x, y)
+  love.graphics.print(self.name, x, i * 30 + y)
+end
+ 
+function Item:action(act)
+  --I'll get to this later 
+  --return "meh"
+end
