@@ -1,0 +1,122 @@
+funtion love.load()
+	hero = {}
+	hero.dir = "up"
+	hero.x = 300
+	hero.y = 300
+	
+	key_act = {}
+	key_act.up = false
+	key_act.right = false
+	key_act.down = false
+	key_act.left = false
+end
+
+function love.update(dt)
+	if game_mode == 2 then
+		-- up
+		if key_act.up and not key_act.down and not key_act.left and not key_act.right and hero.y > 5 then
+			hero.y = hero.y - 400*dt
+			hero.dir = "up"
+		-- right
+		elseif key_act.right and not key_act.left and not key_act.up and not key_act.down and hero.x < 755 then
+			hero.x = hero.x + 400*dt
+			hero.dir = "right"
+		-- down
+		elseif key_act.down and not key_act.up and not key_act.left and not key_act.right and hero.y < 555 then
+			hero.y = hero.y + 400*dt
+			hero.dir = "down"
+		-- left
+		elseif key_act.left and not key_act.right and not key_act.up and not key_act.down and hero.x > 5 then
+			hero.x = hero.x - 400*dt
+			hero.dir = "left"
+		-- diangles
+		-- up left
+		elseif key_act.left and not key_act.right and key_act.up and not key_act.down then
+			if hero.x > 5 and hero.y > 5 then
+				hero.x = hero.x - 250*dt
+				hero.y = hero.y - 250*dt
+				hero.dir = "upleft"
+			elseif hero.x < 5 and hero.y > 5 then
+				hero.y = hero.y - 250*dt
+				hero.dir = "upleft"
+			elseif hero.x > 5 and hero.y < 5 then
+				hero.x = hero.x - 250*dt
+				hero.dir = "upleft"
+			end
+		-- down left
+		elseif key_act.left and not key_act.right and not key_act.up and key_act.down then
+			if hero.x > 5 and hero.y < 555 then
+				hero.x = hero.x - 250*dt
+				hero.y = hero.y + 250*dt
+				hero.dir = "downleft"
+			elseif  hero.x < 5 and hero.y < 555 then
+				hero.y = hero.y + 250*dt
+				hero.dir = "downleft"
+			elseif hero.x > 5 and hero.y > 555 then
+				hero.x = hero.x - 250*dt
+				hero.dir = "downleft"
+			end
+			
+		-- up right
+		elseif not key_act.left and key_act.right and key_act.up and not key_act.down then
+			if hero.x < 755 and hero.y > 5 then
+				hero.x = hero.x + 250*dt
+				hero.y = hero.y - 250*dt
+				hero.dir = "upright"
+			elseif hero.x > 755 and hero.y > 5 then
+				hero.y = hero.y - 250*dt
+				hero.dir = "upright"
+			elseif hero.x < 755 and hero.y < 5 then
+				hero.x = hero.x + 250*dt
+				hero.dir = "upright"
+			end
+		-- down right
+		elseif not key_act.left and key_act.right and not key_act.up and key_act.down then
+			if hero.x < 755 and hero.y < 555 then
+				hero.x = hero.x + 250*dt
+				hero.y = hero.y + 250*dt
+				hero.dir = "downright"	
+			elseif hero.x > 755 and hero.y < 555 then
+				hero.y = hero.y + 250*dt
+				hero.dir = "downright"
+			elseif hero.x < 755 and hero.y > 555 then
+				hero.x = hero.x + 250*dt
+				hero.dir = "downright"
+			end
+		end
+	end
+end
+
+function love.keypressed(key)
+   if key == "escape" then
+      love.event.push("quit") 
+   end
+   if game_mode == 0 then
+		gameKeys(key)
+   end
+end
+function love.keyreleased(key)
+	if game_mode == 2 then
+		if key == "up" then
+			key_act.up = false
+		elseif key == "right" then
+			key_act.right = false
+		elseif key == "down" then
+			key_act.down = false
+		elseif key == "left" then
+			key_act.left = false
+		end
+	end
+end
+
+function gameKeys(key)
+	if key == "up" then
+		key_act.up = true
+	elseif key == "right" then
+		key_act.right = true
+	elseif key == "down" then
+		key_act.down = true
+	elseif key == "left" then
+		key_act.left = true
+	end
+end
