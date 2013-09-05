@@ -5,9 +5,13 @@
 Menu = {}
 Menu.items = {}
 Menu.selection = 1
+Menu.x = 0
+Menu.y = 0
 
-function Menu:new()
+function Menu:new(x, y)
   newMenu = {}
+  newMenu.x = x
+  newMenu.y = y
   setmetatable(newMenu, self)
   self.__index = self
   return newMenu
@@ -20,15 +24,15 @@ end
 function Menu:draw()
   for i,obj in ipairs(self.items) do
     if i == self.selection then
-	  love.graphics.setColor(255, 155, 255, 255)
-	  obj:draw(i)
+	  love.graphics.setColor(155, 155, 255, 255)
+	  obj:draw(i, self.x, self.y)
 	  love.graphics.setColor(255, 255, 255, 255)
 	else
-	  obj:draw(i)
+	  obj:draw(i, self.x, self.y)
 	end
   end
   love.graphics.setColor(255, 255, 255, 255)
-  love.graphics.print(self.selection, 100, 50)
+  --love.graphics.print(self.selection, 100, 50)
 end
 
 function Menu:keypressed(key)
@@ -45,5 +49,8 @@ function Menu:keypressed(key)
 	else
 	  self.selection = self.selection + 1
 	end
+  end
+  if key == "return" then
+    self.items[self.selection]:action("enter")
   end
 end
