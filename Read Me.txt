@@ -1,0 +1,7 @@
+Jekewikuw
+===========
+A 2D game that is programmed in Lua with Love2D
+
+Members:
+Critter2555
+Dagmar
