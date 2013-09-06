@@ -7,12 +7,24 @@
 -- This class needs design work. Right now it store all assets in the items table.
 -- However every asset varies too much to pack together. For example some assets do not respond to
 -- key presses and are only displayed. A MVC |Model View Control| approach could provide a solution
+--
+-- Also need to look into standard items that would fit this class. Things such as backgrounds,
+-- data models, etc need to be designed into the framwork
+--
+-- Proposed components
+-----------------------
+-- Display only items (Backgrounds, titles, text, images, etc)
+-- Selectable/Interactive items (Menus, dialogue, etc)
+-- Data and models (game state, entity values, inventory, ect)
 
 Scene = {}
 Scene.items = {}
+Scene.name = ""
 
-function Scene:new()
+function Scene:new(name)
   newScene = {}
+  newScene.items = {}
+  newScene.name = name
   setmetatable(newScene, self)
   self.__index = self
   return newScene
@@ -28,8 +40,20 @@ function Scene:draw()
   end
 end
 
-function Scene:keypressed(key)
-  for i,obj in ipairs(self.items) do
-    obj:keypressed(key)
+function Scene:update(dt)
+  for i, obj in ipairs(self.items) do
+    obj:update(dt)
   end
+end
+
+function Scene:keypressed(key)
+  name = self.name
+  act = "none"
+  for i,obj in ipairs(self.items) do
+    -- let's try to call data up from objects below here rather than
+	-- passing down the key data to the objects and pushing up the results
+    name, act = obj:keypressed(key)
+	-- self.name = act
+  end
+  return name, act
 end

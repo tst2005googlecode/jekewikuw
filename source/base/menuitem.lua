@@ -4,10 +4,14 @@
 
 Item = {}
 Item.name = ""
+Item.act = ""
+Item.val = ""
 
-function Item:new(a)
+function Item:new(name, act, val)
   newItem = {}
-  newItem.name = a
+  newItem.name = name
+  newItem.act = act
+  newItem.val = val
   setmetatable(newItem, self)
   self.__index = self
   
@@ -18,7 +22,7 @@ function Item:draw(i, x, y)
   love.graphics.print(self.name, x, i * 30 + y)
 end
  
-function Item:action(act)
+function Item:action()
   --I'll get to this later 
-  --return "meh"
+  return self.val, self.act
 end

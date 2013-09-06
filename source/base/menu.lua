@@ -10,6 +10,8 @@ Menu.y = 0
 
 function Menu:new(x, y)
   newMenu = {}
+  newMenu.items = {}
+  newMenu.selection = 1
   newMenu.x = x
   newMenu.y = y
   setmetatable(newMenu, self)
@@ -32,10 +34,15 @@ function Menu:draw()
 	end
   end
   love.graphics.setColor(255, 255, 255, 255)
-  --love.graphics.print(self.selection, 100, 50)
+end
+
+function Menu:update(dt)
+  -- TODO
 end
 
 function Menu:keypressed(key)
+  name = "none"
+  act = "none"
   if key == "up" then
     if self.selection == 1 then
 	  self.selection = #self.items
@@ -51,6 +58,7 @@ function Menu:keypressed(key)
 	end
   end
   if key == "return" then
-    self.items[self.selection]:action("enter")
+    name, act = self.items[self.selection]:action()
   end
+  return name, act
 end

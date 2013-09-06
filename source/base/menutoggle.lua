@@ -19,13 +19,13 @@ end
 function Toggle:draw(i, x, y)
   love.graphics.print(self.name, x, i * 30 + y)
   if self.value == true then
-    love.graphics.print("X", x + 50, i * 30 + y)
+    love.graphics.print("X", x + 100, i * 30 + y)
   else
-    love.graphics.print("O", x + 50, i * 30 + y)
+    love.graphics.print("O", x + 100, i * 30 + y)
   end
 end
  
-function Toggle:action(act)
+function Toggle:action()
   self.value = not self.value
-  --return "toggled"-- not needed yet
+  return self.name
 end
