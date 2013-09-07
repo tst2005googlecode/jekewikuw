@@ -62,3 +62,7 @@ function Menu:keypressed(key)
   end
   return name, act
 end
+
+function Menu:keyreleased(key)
+ -- TODO
+end

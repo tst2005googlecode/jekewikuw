@@ -23,7 +23,7 @@ function Player:draw()
 end
 
 function Player:update(dt)
- -- TODO
+  -- TODO
 end
 
 function Player:keypressed(key)
