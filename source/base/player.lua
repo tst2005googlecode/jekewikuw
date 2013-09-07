@@ -34,7 +34,7 @@ function Player:keypressed(key)
 	elseif key == "down" then
 		key_act.down = true
 	elseif key == "left" then
-		key_act.right = true
+		key_act.left = true
 	elseif key == "right" then
 		key_act.right = true
   end
@@ -53,14 +53,26 @@ function Player:keyreleased(key)
 end
 
 function Player:update(dt)
-	if key_act.up then
+	if key_act.up and not key_act.down and not key_act.left and not key_act.right then
 		self.y = self.y - 10
-	elseif key_act.down then
+	elseif key_act.down and not key_act.up and not key_act.left and not key_act.right then
 		self.y = self.y + 10
-	elseif key_act.left then
+	elseif key_act.left and not key_act.right and not key_act.up and not key_act.down then
 		self.x = self.x - 10
-	elseif key_act.right then
+	elseif key_act.right and not key_act.left and not key_act.up and not key_act.down then
 		self.x = self.x + 10
+	elseif key_act.left and not key_act.right and key_act.up and not key_act.down then
+		self.y = self.y - 5
+		self.x = self.x - 5
+	elseif key_act.left and not key_act.right and not key_act.up and key_act.down then
+		self.y = self.y + 5
+		self.x = self.x - 5
+	elseif not key_act.left and key_act.right and key_act.up and not key_act.down then
+		self.y = self.y - 5
+		self.x = self.x + 5
+	elseif not key_act.left and key_act.right and not key_act.up and key_act.down then
+		self.y = self.y + 5
+		self.x = self.x + 5
 	end
 end
 
