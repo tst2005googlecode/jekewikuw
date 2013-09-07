@@ -39,7 +39,10 @@ function Stage:keypressed(key)
   elseif act == "quit" then
     love.event.push(act)
   end
-  --
+end
+
+function Stage:keyreleased(key)
+  self.scenes[self.currentScene]:keyreleased(key)
 end
 
 function Stage:setScene(scene)

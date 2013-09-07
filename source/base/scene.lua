@@ -57,3 +57,9 @@ function Scene:keypressed(key)
   end
   return name, act
 end
+
+function Scene:keyreleased(key)
+  for i,obj in ipairs(self.items) do
+    obj:keyreleased(key)
+  end
+end
