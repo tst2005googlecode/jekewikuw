@@ -34,3 +34,9 @@ function Level:keypressed(key)
     obj:keypressed(key)
   end
 end
+
+function Level:keyreleased(key)
+  for i,obj in ipairs(self.items) do
+    obj:keyreleased(key)
+  end
+end
